@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import ApiService from '../utils/ApiService';
+//import ApiService from '../utils/ApiService';
 import AccountItem from './AccountItem';
 
 const AccountList = () => {
   const [accounts, setAccounts] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     // Fetch account data from the server when component mounts
     ApiService.fetchAccounts()
       .then((data) => setAccounts(data))
       .catch((error) => console.error('Error fetching accounts:', error));
   }, []);
+  */
 
   return (
     <div>

@@ -3,6 +3,7 @@ import './Dashboard.css'
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { AddAccountForm, DeleteAccountModal } from '../components/AccountManagement';
 
 //import axios from 'axios'; // Example of using Axios for API calls
 
@@ -20,6 +21,18 @@ function Dashboard() {
       });
   }, []); // Empty dependency array to ensure useEffect runs only once
 */
+const [isAccountModalOpen, setAccountModalOpen] = useState(false);
+const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
+// Function to toggle account modal state
+const toggleAccountModal = () => {
+  setAccountModalOpen(!isAccountModalOpen);
+};
+
+// Function to toggle delete modal state
+const toggleDeleteModal = () => {
+  setDeleteModalOpen(!isDeleteModalOpen);
+};
 
     const [selectedOption, setSelectedOption] = useState('');
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -104,11 +117,21 @@ function Dashboard() {
           No Favourite account selected
         <ul>
           <button>Go to the list of accounts</button>
-          <button>Add accounts to my Favourite</button>
-          <button>set up new account</button>
+          <button  >Add accounts to my Favourite</button>
+          <button onClick={toggleAccountModal}>set up new account</button>
         </ul>
       </div>
     </div>
+    {isAccountModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={toggleAccountModal}>&times;</span>
+            <h2>Add Account</h2>
+            <AddAccountForm/>
+          </div>
+        </div>
+      )}
+
 
     {/* Second box */}
     <div className="box">
