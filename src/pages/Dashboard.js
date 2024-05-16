@@ -77,28 +77,31 @@ function Dashboard() {
       <h2> Favourite Account</h2>
       <div className='content'>
 
-      <table>
+     {/*  <table>
             <thead>
               <tr>
                 <th>Account</th>
                 <th>Updated</th>
                 <th>Balance</th>
+                
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>checking</td>
                 <td></td>
-                <td>$ 0.0</td>
+                <td></td>
+                <td></td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
-              {/* Add more rows as needed */}
+              Add more rows as needed 
             </tbody>
           </table>
+*/}
+          No Favourite account selected
         <ul>
           <button>Go to the list of accounts</button>
           <button>Add accounts to my Favourite</button>
