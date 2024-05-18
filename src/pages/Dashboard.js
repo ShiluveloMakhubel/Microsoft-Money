@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { AddAccountForm, DeleteAccountModal } from '../components/AccountManagement';
+import { Link } from 'react-router-dom';
 
 //import axios from 'axios'; // Example of using Axios for API calls
 
@@ -164,7 +165,17 @@ const toggleDeleteModal = () => {
         </ul>
       </div>
     </div>
+
+    <div className="box">
+        <h2>Your personal Ai Money assistant</h2>
+        <ul>
+         <button> <Link to="/nlp">Go to NLP Chatbot</Link></button>
+          
+        </ul>
+      </div>
   </div>
+  
+
   );
 }
 
