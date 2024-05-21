@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './NLPPage.css';
+import { getNLPResponse } from '../services/services/services';
 
 const NLPPage = () => {
   const [input, setInput] = useState('');
@@ -9,14 +10,20 @@ const NLPPage = () => {
     setInput(e.target.value);
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (input.trim()) {
       const userMessage = { sender: 'user', text: input };
       setMessages([...messages, userMessage]);
 
-      // Simulate chatbot response
-      const botMessage = { sender: 'bot', text: `You said: ${input}` };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+      try {
+        const botResponse = await getNLPResponse(input);
+        const botMessage = { sender: 'bot', text: botResponse };
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+      } catch (error) {
+        console.error('Error getting NLP response:', error);
+        const botMessage = { sender: 'bot', text: 'Error getting response from server.' };
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+      }
 
       setInput('');
     }
@@ -32,7 +39,7 @@ const NLPPage = () => {
               key={index}
               className={`message ${msg.sender}`}
             >
-              {msg.text}
+              {msg.text.result}
             </div>
           ))}
         </div>

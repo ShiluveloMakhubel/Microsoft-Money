@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { AddAccountForm, DeleteAccountModal } from '../components/AccountManagement';
 import { Link } from 'react-router-dom';
+import { getAllAccounts } from '../services/services/services';
 
 //import axios from 'axios'; // Example of using Axios for API calls
 
@@ -22,6 +23,23 @@ function Dashboard() {
       });
   }, []); // Empty dependency array to ensure useEffect runs only once
 */
+
+const [data, setData] = useState([]);
+
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      try {
+        const accounts = await getAllAccounts(); // Call the API function
+        console.log("hi",accounts)
+        setData(accounts);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData()
+  },[]);
+
 const [isAccountModalOpen, setAccountModalOpen] = useState(false);
 const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
@@ -90,8 +108,11 @@ const toggleDeleteModal = () => {
     <div className="box">
       <h2> Favourite Account</h2>
       <div className='content'>
-
-     {/*  <table>
+        <ul>
+      {data.map(item => (
+         
+        
+       <table>
             <thead>
               <tr>
                 <th>Account</th>
@@ -102,20 +123,21 @@ const toggleDeleteModal = () => {
             </thead>
             <tbody>
               <tr>
+                <td key={item._id}> {item.name}</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>R {item.balance}</td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
-              Add more rows as needed 
+             
             </tbody>
           </table>
-*/}
-          No Favourite account selected
+
+))}
+</ul>
         <ul>
           <button>Go to the list of accounts</button>
           <button  >Add accounts to my Favourite</button>
