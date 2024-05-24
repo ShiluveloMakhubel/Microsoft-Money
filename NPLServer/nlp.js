@@ -1,6 +1,7 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const apiKey = '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';
-const apiUrl = 'https://api-inference.huggingface.co/models/gpt2-xl';
+jest.setTimeout(30000); // 30 seconds
+const apiKey = process.env.APIKEY;
+const apiUrl = process.env.APIURL;
 
 
 const processText = async (text) => {

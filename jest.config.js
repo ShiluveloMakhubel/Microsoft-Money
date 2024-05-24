@@ -1,16 +1,12 @@
 module.exports = {
-    testEnvironment: 'node',
-    testMatch: ['**/tests/**/*.test.js', '**/src/**/*.test.js'],
-    testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+    testEnvironment: 'jsdom',
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-    transform: {
-      '^.+\\.jsx?$': 'babel-jest'
+    moduleNameMapper: {
+      '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     },
-    globals: {
-      'ts-jest': {
-        tsconfig: 'tsconfig.json',
-        diagnostics: false
-      }
-    }
+    transform: {
+      '^.+\\.(js|jsx)$': 'babel-jest',
+    },
+    testTimeout: 30000,  // 30 seconds
   };
   
