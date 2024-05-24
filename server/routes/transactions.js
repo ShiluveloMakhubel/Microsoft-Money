@@ -1,41 +1,45 @@
 const express = require('express');
 const router = express.Router();
 const Transaction = require('../models/transaction');
+const Account = require('../models/account');
 
-// Add a new transaction
+
+
+
+
 router.post('/transactions', async (req, res) => {
   const { accountId, transactionType, amount, category, date, description } = req.body;
   
-  // Validate the request data
-  if (!accountId || !transactionType || !amount || !category || !date) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
-
-  const newTransaction = new Transaction({
-    accountId,
-    transactionType,
-    amount,
-    category,
-    date,
-    description
-  });
-
   try {
-    const savedTransaction = await newTransaction.save();
-    res.status(201).json(savedTransaction);
+    const account = await Account.findById(accountId);
+    if (!account) {
+      return res.status(404).json({ message: 'Account not found' });
+    }
+
+    const transaction = new Transaction({
+      accountId,
+      transactionType,
+      amount,
+      category,
+      date,
+      description
+    });
+
+    await transaction.save();
+
+    // Update account balance
+    if (transactionType === 'Deposit') {
+      account.balance += parseFloat(amount); // Ensure amount is treated as a number
+    } else if (transactionType === 'Withdrawal') {
+      account.balance -= parseFloat(amount); // Ensure amount is treated as a number
+    }
+    
+
+    await account.save();
+
+    res.status(201).json(transaction);
   } catch (error) {
     res.status(400).json({ message: error.message });
-  }
-});
-
-
-// Get transactions for a user
-router.get('/transactions/:userId', async (req, res) => {
-  try {
-    const transactions = await Transaction.find({ userId: req.params.userId });
-    res.status(200).send(transactions);
-  } catch (error) {
-    res.status(500).send(error);
   }
 });
 

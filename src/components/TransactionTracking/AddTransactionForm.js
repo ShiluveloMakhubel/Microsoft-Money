@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddTransactionForm = ({ accountId, fetchTransactions }) => {
-  const [transactionType, setTransactionType] = useState('');
+const AddTransactionForm = ({ accountId, accountType, fetchTransactions }) => {
+  const [transactionType, setTransactionType] = useState('Deposit');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
@@ -11,9 +11,8 @@ const AddTransactionForm = ({ accountId, fetchTransactions }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newTransaction = { accountId, transactionType, amount, category, date, description };
-    const baseURL = 'http://localhost:5001/api/';
     try {
-      await axios.post(`${baseURL}transactions`, newTransaction);
+      await axios.post('http://localhost:5001/api/transactions', newTransaction);
       fetchTransactions();
     } catch (error) {
       console.error('Error adding transaction:', error);
@@ -22,7 +21,10 @@ const AddTransactionForm = ({ accountId, fetchTransactions }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={transactionType} onChange={(e) => setTransactionType(e.target.value)} placeholder="Transaction Type" required />
+      <select value={transactionType} onChange={(e) => setTransactionType(e.target.value)} required>
+        <option value="Deposit">Deposit</option>
+        <option value="Withdrawal">Withdrawal</option>
+      </select>
       <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" required />
       <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Category" required />
       <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />

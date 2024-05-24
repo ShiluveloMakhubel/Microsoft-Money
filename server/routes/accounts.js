@@ -15,7 +15,17 @@ router.get('/all', async (req, res) => {
   }
 });
 
-
+router.get('/accounts/:id', async (req, res) => {
+  try {
+    const account = await Account.findById(req.params.id);
+    if (!account) {
+      return res.status(404).json({ message: 'Account not found' });
+    }
+    res.json(account);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 // Create an account
 router.post('/add', async (req, res) => {
   const account = new Account({

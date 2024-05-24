@@ -1,9 +1,10 @@
 import React from 'react';
 
-const TransactionList = ({ accountId, transactions }) => {
+const TransactionList = ({ account, transactions }) => {
   return (
     <div>
-      <h2>Transactions for Account {accountId}</h2>
+      <h2>Transactions for Account {account?._id}</h2>
+
       <table>
         <thead>
           <tr>
