@@ -1,22 +1,26 @@
 name: Node.js CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
+    env:
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      NODE_ENV: 'test'
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm test
-        env:
-          MONGO_URI: mongodb://mongodb+srv://throneluvi:Shiluvelo26*@money.evytiv8.mongodb.net/money
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - run: npm install --legacy-peer-deps
+    - run: npm test
