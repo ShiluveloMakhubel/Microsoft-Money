@@ -1,9 +1,9 @@
-const React = require('react');
-const { render } = require('@testing-library/react');
-const App = require('./App');
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders My Money heading', () => {
+  render(<App />);
+  const headingElement = screen.getByText(/My Money/i);
+  expect(headingElement).toBeInTheDocument();
 });
