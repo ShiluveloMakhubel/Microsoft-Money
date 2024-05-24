@@ -55,15 +55,7 @@
     "jest": "^27.5.1",
     "mocha": "^10.4.0",
     "supertest": "^7.0.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.[tj]sx?$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
-    },
-    "testTimeout": 60000
   }
+  
 
 }
