@@ -1,17 +1,14 @@
-// api.js
-
 import axios from 'axios';
+
 
 const baseURL = 'http://localhost:5001/api/';
 export const getAllAccounts = async () => {
-  try {
-    const response = await axios.get(`${baseURL}all`);
-    return response.data;
-    console.log('ran')
-  } catch (error) {
-    throw error;
-  }
+  const response = await axios.get(`${baseURL}all`);
+  return response.data;
 };
+
+
+
 
 export const addAccount = async (accountData) => {
   try {

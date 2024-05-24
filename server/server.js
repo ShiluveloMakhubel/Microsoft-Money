@@ -27,10 +27,14 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api', require('./routes/accounts'));
-app.use('/api', require('./routes/transactions')); // Add this line
+app.use('/api', require('./routes/transactions'));
 
+// Export the app for testing
+module.exports = app;
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
