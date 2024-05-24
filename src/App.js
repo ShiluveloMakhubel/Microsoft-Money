@@ -4,6 +4,8 @@ import './App.css';
 import Dashboard from './pages/Dashboard';
 import NLPPage from './pages/NLPPage';
 import Test from './pages/test'
+import TransactionTracking from './components/TransactionTracking/index'
+
 
 function App  ( ){
   return (
@@ -12,6 +14,7 @@ function App  ( ){
             <Route path='/' exact element={<Dashboard/>}/>
             <Route path="/nlp" element={<NLPPage />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/transactions/:accountId" element={< TransactionTracking/>} />
             </Routes>
     </Router>
   );

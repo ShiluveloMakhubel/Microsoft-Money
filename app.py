@@ -1,37 +1,36 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-from transformers import pipeline
-import logging
+import sagemaker
+import boto3
+from sagemaker.huggingface import HuggingFace
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-
-# Initialize the Flask application
-app = Flask(__name__)
-CORS(app)  # This will enable CORS for all routes
-
-# Load the model
-logging.info("Loading the model...")
 try:
-    nlp_pipeline = pipeline("text-generation", model="gpt2")
-    logging.info("Model loaded successfully")
-except Exception as e:
-    logging.error(f"Error loading the model: {e}")
+	role = sagemaker.get_execution_role()
+except ValueError:
+	iam = boto3.client('iam')
+	role = iam.get_role(RoleName='sagemaker_execution_role')['Role']['Arn']
+		
+hyperparameters = {
+	'model_name_or_path':'openai-community/gpt2-xl',
+	'output_dir':'/opt/ml/model'
+	# add your remaining hyperparameters
+	# more info here https://github.com/huggingface/transformers/tree/v4.37.0/examples/pytorch/language-modeling
+}
 
-@app.route('/api/nlp', methods=['POST'])
-def nlp():
-    data = request.json
-    user_input = data.get('text')
-    logging.info(f"Received input: {user_input}")
+# git configuration to download our fine-tuning script
+git_config = {'repo': 'https://github.com/huggingface/transformers.git','branch': 'v4.37.0'}
 
-    # Generate a response using the model
-    try:
-        response = nlp_pipeline(user_input, max_length=50)[0]['generated_text']
-        logging.info(f"Generated response: {response}")
-        return jsonify({'response': response})
-    except Exception as e:
-        logging.error(f"Error generating response: {e}")
-        return jsonify({'error': 'Error generating response'}), 500
+# creates Hugging Face estimator
+huggingface_estimator = HuggingFace(
+	entry_point='run_clm.py',
+	source_dir='./examples/pytorch/language-modeling',
+	instance_type='ml.p3.2xlarge',
+	instance_count=1,
+	role=role,
+	git_config=git_config,
+	transformers_version='4.37.0',
+	pytorch_version='2.1.0',
+	py_version='py310',
+	hyperparameters = hyperparameters
+)
 
-if __name__ == '__main__':
-    app.run(port=5000)
+# starting the train job
+huggingface_estimator.fit()
