@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.fad0f6c7.css",
-    "main.js": "/static/js/main.abd21168.js",
-    "static/js/453.c7fb1922.chunk.js": "/static/js/453.c7fb1922.chunk.js",
-    "index.html": "/index.html",
-    "main.fad0f6c7.css.map": "/static/css/main.fad0f6c7.css.map",
-    "main.abd21168.js.map": "/static/js/main.abd21168.js.map",
-    "453.c7fb1922.chunk.js.map": "/static/js/453.c7fb1922.chunk.js.map"
+    "main.css": "/microsoft-money/static/css/main.fad0f6c7.css",
+    "main.js": "/microsoft-money/static/js/main.1c1e2ecf.js",
+    "static/js/453.c7fb1922.chunk.js": "/microsoft-money/static/js/453.c7fb1922.chunk.js",
+    "index.html": "/microsoft-money/index.html",
+    "main.fad0f6c7.css.map": "/microsoft-money/static/css/main.fad0f6c7.css.map",
+    "main.1c1e2ecf.js.map": "/microsoft-money/static/js/main.1c1e2ecf.js.map",
+    "453.c7fb1922.chunk.js.map": "/microsoft-money/static/js/453.c7fb1922.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fad0f6c7.css",
-    "static/js/main.abd21168.js"
+    "static/js/main.1c1e2ecf.js"
   ]
 }
