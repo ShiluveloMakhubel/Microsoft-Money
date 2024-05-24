@@ -1,36 +1,42 @@
 const mongoose = require('mongoose');
-const Account = require('../server/models/account');
 const request = require('supertest');
 const app = require('../server/server');
+const Account = require('../server/models/account');
 
 beforeAll(async () => {
   const url = 'mongodb+srv://throneluvi:Shiluvelo26*@money.evytiv8.mongodb.net/money';
   await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 });
 
-afterAll(async () => {
-  await mongoose.connection.close();
-});
 
-describe('Account API', () => {
+
+describe('Account API Integration Tests', () => {
   it('should create a new account', async () => {
     const res = await request(app)
       .post('/api/add')
       .send({
         name: 'Test Account',
         balance: 1000,
-        type: 'Savings',
+        type: 'Savings'
       });
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty('_id');
+    expect(res.body.name).toBe('Test Account');
+    expect(res.body.balance).toBe(1000);
+    expect(res.body.type).toBe('Savings');
   });
 
   it('should fetch an account by ID', async () => {
-    const account = new Account({ name: 'Test Account', balance: 1000, type: 'Savings' });
-    await account.save();
-
-    const res = await request(app).get(`/api/accounts/${account._id}`);
+    const account = new Account({
+      name: 'Fetch Account',
+      balance: 500,
+      type: 'Checking'
+    });
+    const savedAccount = await account.save();
+    const res = await request(app).get(`/api/accounts/${savedAccount._id}`);
     expect(res.statusCode).toEqual(200);
-    expect(res.body.name).toEqual(account.name);
+    expect(res.body.name).toBe('Fetch Account');
+    expect(res.body.balance).toBe(500);
+    expect(res.body.type).toBe('Checking');
   });
 });

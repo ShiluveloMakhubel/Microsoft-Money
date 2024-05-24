@@ -2,14 +2,14 @@ import './Dashboard.css';
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { AddAccountForm, DeleteAccountModal } from '../components/AccountManagement';
+import { AddAccountForm, } from '../components/AccountManagement';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllAccounts } from '../services/services/services';
 
 function Dashboard() {
   const [data, setData] = useState([]);
   const [isAccountModalOpen, setAccountModalOpen] = useState(false);
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+ 
   const [selectedOption, setSelectedOption] = useState('');
   const [isMenuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -34,9 +34,7 @@ function Dashboard() {
     setAccountModalOpen(!isAccountModalOpen);
   };
 
-  const toggleDeleteModal = () => {
-    setDeleteModalOpen(!isDeleteModalOpen);
-  };
+ 
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);

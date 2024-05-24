@@ -1,14 +1,17 @@
-import axios from 'axios';
+// api.js
 
+import axios from 'axios';
 
 const baseURL = 'http://localhost:5001/api/';
 export const getAllAccounts = async () => {
-  const response = await axios.get(`${baseURL}all`);
-  return response.data;
+  try {
+    const response = await axios.get(`${baseURL}all`);
+    return response.data;
+    console.log('ran')
+  } catch (error) {
+    throw error;
+  }
 };
-
-
-
 
 export const addAccount = async (accountData) => {
   try {
@@ -17,12 +20,6 @@ export const addAccount = async (accountData) => {
   } catch (error) {
     throw error;
   }
-};
-
-
-export const getTransactionsByAccount = async (accountId) => {
-  const response = await axios.get(`/api/accounts/${accountId}/transactions`);
-  return response.data;
 };
 
 export const getNLPResponse = async (text) => {
