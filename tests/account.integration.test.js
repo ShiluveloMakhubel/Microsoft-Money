@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../server/server');
 const Account = require('../server/models/account');
+require('dotenv').config();
 // Add at the top of your test files or in a setup file
 jest.setTimeout(30000); // 30 seconds
 
 beforeAll(async () => {
-  const url = 'mongodb+srv://throneluvi:Shiluvelo26*@money.evytiv8.mongodb.net/money';
+  const url = process.env.MONGO_URI;
   await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 });
 

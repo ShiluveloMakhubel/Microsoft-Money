@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5001;
-
+require('dotenv').config();
 // Connect to MongoDB
-const MONGODB_URI = 'mongodb+srv://throneluvi:Shiluvelo26*@money.evytiv8.mongodb.net/money';
+const MONGODB_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
