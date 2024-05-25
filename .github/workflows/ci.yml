@@ -4,14 +4,21 @@ on:
   push:
     branches:
       - main
+      - development
   pull_request:
     branches:
+      - development
       - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        options: --health-cmd "mongo --eval 'db.runCommand({ping: 1})'" --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       MONGO_URI: ${{ secrets.MONGO_URI }}
       NODE_ENV: 'test'
