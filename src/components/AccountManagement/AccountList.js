@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,  } from 'react';
 //import ApiService from '../utils/ApiService';
 import AccountItem from './AccountItem';
 
 const AccountList = () => {
-  const [accounts, setAccounts] = useState([]);
+  const [accounts] = useState([]);
 
   /*useEffect(() => {
     // Fetch account data from the server when component mounts
