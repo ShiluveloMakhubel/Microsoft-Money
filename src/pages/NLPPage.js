@@ -14,21 +14,24 @@ const NLPPage = () => {
     if (input.trim()) {
       const userMessage = { sender: 'user', text: input };
       setMessages([...messages, userMessage]);
-
+  
       try {
-        const botResponse = await getNLPResponse(input);
-        const botMessage = { sender: 'bot', text: botResponse };
+        const response = await getNLPResponse(input);
+        const botMessage = {
+          sender: 'bot',
+          text: response && response.result ? response.result : "No response from server"
+        };
         setMessages((prevMessages) => [...prevMessages, botMessage]);
       } catch (error) {
         console.error('Error getting NLP response:', error);
         const botMessage = { sender: 'bot', text: 'Error getting response from server.' };
         setMessages((prevMessages) => [...prevMessages, botMessage]);
       }
-
+  
       setInput('');
     }
   };
-
+  
   return (
     <div className="nlp-page">
       <h1>NLP Chatbot</h1>

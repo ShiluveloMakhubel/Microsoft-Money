@@ -8,7 +8,6 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -28,7 +27,7 @@
     "test": "jest",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -50,10 +49,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.5",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-env": "^7.24.5",
     "@babel/preset-react": "^7.24.1",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
+    "@testing-library/user-event": "^14.5.2",
     "babel-jest": "^29.7.0",
     "chai": "^5.1.1",
     "chai-http": "^4.4.0",
@@ -64,6 +65,8 @@
     "jsdom": "^24.0.0",
     "mocha": "^10.4.0",
     "supertest": "^7.0.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
-
 }
